@@ -1,5 +1,8 @@
 package de.slackspace.openkeepass.domain;
 
+import org.simpleframework.xml.ElementList;
+import org.simpleframework.xml.Root;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -8,11 +11,12 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
-@XmlRootElement
+
+@Root(name = "History", strict = false)
 @XmlAccessorType(XmlAccessType.FIELD)
 public class History {
 
-    @XmlElement(name = "Entry")
+    @ElementList(name = "Entry", required = false, inline = true)
     private List<Entry> entries = new ArrayList<Entry>();
 
     public List<Entry> getHistoricEntries() {

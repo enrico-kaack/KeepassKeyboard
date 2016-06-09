@@ -1,5 +1,9 @@
 package de.slackspace.openkeepass.domain;
 
+import org.simpleframework.xml.Element;
+import org.simpleframework.xml.ElementList;
+import org.simpleframework.xml.Root;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -17,7 +21,7 @@ import de.slackspace.openkeepass.domain.xml.adapter.UUIDXmlAdapter;
  * title, username and a password.
  *
  */
-@XmlRootElement
+@Root(name = "Entry", strict = false)
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Entry implements KeePassFileElement {
 
@@ -36,23 +40,23 @@ public class Entry implements KeePassFileElement {
         PROPERTY_KEYS.add(TITLE);
     }
 
-    @XmlElement(name = "UUID")
+    @Element(name = "UUID", required = true)
     @XmlJavaTypeAdapter(UUIDXmlAdapter.class)
     private UUID uuid;
 
-    @XmlElement(name = "IconID")
+    @Element(name = "IconID", required = false)
     private int iconId = 0;
 
     private transient byte[] iconData;
 
-    @XmlElement(name = "CustomIconUUID")
+    @Element(name = "IconID", required = false)
     @XmlJavaTypeAdapter(UUIDXmlAdapter.class)
     private UUID customIconUUID;
 
-    @XmlElement(name = "String")
+    @ElementList(name = "String", required = false, inline = true)
     private List<Property> properties = new ArrayList<Property>();
 
-    @XmlElement(name = "History")
+    @Element(name = "History", required = false)
     private History history;
 
     @XmlElement(name = "Times")

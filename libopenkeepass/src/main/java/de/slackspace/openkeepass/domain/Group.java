@@ -1,5 +1,9 @@
 package de.slackspace.openkeepass.domain;
 
+import org.simpleframework.xml.Element;
+import org.simpleframework.xml.ElementList;
+import org.simpleframework.xml.Root;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -19,18 +23,18 @@ import de.slackspace.openkeepass.domain.xml.adapter.UUIDXmlAdapter;
  * @see Entry
  *
  */
-@XmlRootElement
+@Root(name = "Group", strict = false)
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Group implements KeePassFileElement {
 
-    @XmlElement(name = "UUID")
+    @Element(name = "UUID", required = false)
     @XmlJavaTypeAdapter(UUIDXmlAdapter.class)
     private UUID uuid;
 
-    @XmlElement(name = "Name")
+    @Element(name = "Name", required = false)
     private String name;
 
-    @XmlElement(name = "IconID")
+    @Element(name = "IconID", required = false)
     private int iconId = 49;
 
     private transient byte[] iconData;
@@ -46,10 +50,10 @@ public class Group implements KeePassFileElement {
     @XmlJavaTypeAdapter(BooleanXmlAdapter.class)
     private Boolean isExpanded;
 
-    @XmlElement(name = "Entry")
+    @ElementList(name = "Entry", required = false, inline = true)
     private List<Entry> entries = new ArrayList<Entry>();
 
-    @XmlElement(name = "Group")
+    @ElementList(name = "Group", required = false, inline = true)
     private List<Group> groups = new ArrayList<Group>();
 
     Group() {

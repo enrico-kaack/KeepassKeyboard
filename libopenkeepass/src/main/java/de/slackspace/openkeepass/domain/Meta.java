@@ -1,5 +1,8 @@
 package de.slackspace.openkeepass.domain;
 
+import org.simpleframework.xml.Element;
+import org.simpleframework.xml.Root;
+
 import java.util.Calendar;
 import java.util.UUID;
 
@@ -17,46 +20,46 @@ import de.slackspace.openkeepass.domain.xml.adapter.UUIDXmlAdapter;
  * icons or how much history entries will be preserved.
  *
  */
-@XmlRootElement
+@Root(strict = false)
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Meta {
 
-    @XmlElement(name = "Generator")
+    @Element(name = "Generator")
     private String generator;
 
-    @XmlElement(name = "DatabaseName")
+    @Element(name = "DatabaseName")
     private String databaseName;
 
-    @XmlElement(name = "DatabaseDescription")
+    @Element(name = "DatabaseDescription")
     private String databaseDescription;
 
-    @XmlElement(name = "DatabaseNameChanged")
+    @Element(name = "DatabaseNameChanged")
     private Calendar databaseNameChanged;
 
-    @XmlElement(name = "DatabaseDescriptionChanged")
+    @Element(name = "DatabaseDescriptionChanged")
     private Calendar databaseDescriptionChanged;
 
-    @XmlElement(name = "MaintenanceHistoryDays")
+    @Element(name = "MaintenanceHistoryDays")
     private int maintenanceHistoryDays;
 
-    @XmlElement(name = "RecycleBinUUID")
+    @Element(name = "RecycleBinUUID")
     @XmlJavaTypeAdapter(UUIDXmlAdapter.class)
     private UUID recycleBinUuid;
 
-    @XmlElement(name = "RecycleBinChanged")
+    @Element(name = "RecycleBinChanged")
     private Calendar recycleBinChanged;
 
-    @XmlElement(name = "RecycleBinEnabled")
+    @Element(name = "RecycleBinEnabled")
     @XmlJavaTypeAdapter(BooleanXmlAdapter.class)
     private Boolean recycleBinEnabled;
 
-    @XmlElement(name = "HistoryMaxItems")
+    @Element(name = "HistoryMaxItems")
     private long historyMaxItems;
 
-    @XmlElement(name = "HistoryMaxSize")
+    @Element(name = "HistoryMaxSize")
     private long historyMaxSize;
 
-    @XmlElement(name = "CustomIcons")
+    @Element(name = "CustomIcons")
     private CustomIcons customIcons;
 
     Meta() {
