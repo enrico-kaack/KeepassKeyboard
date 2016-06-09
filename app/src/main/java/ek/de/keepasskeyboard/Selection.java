@@ -20,19 +20,21 @@ import de.slackspace.openkeepass.domain.Entry;
 public class Selection extends AppCompatActivity {
     SharedPreferences sharedPref;
     String path_to_db;
+    KeepassHandler kee;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_selection);
 
+        kee = new KeepassHandler();
         handlePermissions();
 
         checkForInputPathAndAskForIfNeccessary();
 
         if (path_to_db != null && !path_to_db.equals("null")) {
-            final KeepassHandler kee = new KeepassHandler();
-            kee.unlockDatabase(path_to_db, "1234");
-            List<Entry> entries = kee.getAllEntries();
+            loadDatabaseAndEntry();
+
         }
 
         //You can change the default filename using the public variable "Default_File_Name"
@@ -41,6 +43,11 @@ public class Selection extends AppCompatActivity {
 
 
 
+    }
+
+    private void loadDatabaseAndEntry() {
+        kee.unlockDatabase(path_to_db, "1234");
+        List<Entry> entries = kee.getAllEntries();
     }
 
     private void checkForInputPathAndAskForIfNeccessary() {
@@ -73,6 +80,7 @@ public class Selection extends AppCompatActivity {
                             SharedPreferences.Editor editor = sharedPref.edit();
                             editor.putString("DB_PATH", chosenDir);
                             editor.commit();
+                            loadDatabaseAndEntry();
                         }else {
                             openFileChooser();
                         }
