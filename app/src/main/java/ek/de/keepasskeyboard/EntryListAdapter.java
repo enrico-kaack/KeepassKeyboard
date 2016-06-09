@@ -30,14 +30,19 @@ public class EntryListAdapter extends ArrayAdapter {
         LayoutInflater inflater = (LayoutInflater) context
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View rowView = inflater.inflate(R.layout.item_selection, parent, false);
+
         TextView tv_title = (TextView) rowView.findViewById(R.id.tv_title);
         TextView tv_username = (TextView) rowView.findViewById(R.id.tv_username);
+        TextView tv_groupname = (TextView) rowView.findViewById(R.id.tv_groupname);
 
         tv_title.setText(data.get(position).getTitle());
         tv_username.setText(data.get(position).getUsername());
+        tv_groupname.setText(data.get(position).getGroupName());
 
 
 
         return rowView;
     }
+
+
 }

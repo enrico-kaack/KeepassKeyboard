@@ -29,7 +29,7 @@ public class KeepassHandler {
         // Retrieve all entries
         List<Entry> entries = database.getEntries();
         for (Entry entry : entries) {
-            System.out.println("Title: " + entry.getTitle() + " Password: " + entry.getPassword());
+            System.out.println("Title: " + entry.getTitle() + " Password: " + entry.getPassword() + "Group " + entry.getGroupName());
         }
         return entries;
     }

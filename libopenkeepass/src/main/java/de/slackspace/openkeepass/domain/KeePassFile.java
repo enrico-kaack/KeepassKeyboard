@@ -242,7 +242,12 @@ public class KeePassFile implements KeePassFileElement {
 
     private void getEntries(Group parentGroup, List<Entry> entries) {
         List<Group> groups = parentGroup.getGroups();
-        entries.addAll(parentGroup.getEntries());
+        List<Entry> entries_in_group  = parentGroup.getEntries();
+        for (int i = 0; i < entries_in_group.size(); i++){
+            entries_in_group.get(i).setGroupName(parentGroup.getName());
+        }
+
+        entries.addAll(entries_in_group);
 
         if (!groups.isEmpty()) {
             for (Group group : groups) {

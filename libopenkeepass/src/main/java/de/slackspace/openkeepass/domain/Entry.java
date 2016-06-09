@@ -46,6 +46,8 @@ public class Entry implements KeePassFileElement {
    // @Element(name = "IconID", required = false)
     private int iconId = 0;
 
+    private String groupName;
+
     private transient byte[] iconData;
 
     @Element(name = "IconID", required = false)
@@ -160,6 +162,12 @@ public class Entry implements KeePassFileElement {
 
     public Times getTimes() {
         return times;
+    }
+
+    public String getGroupName() {return groupName;}
+
+    public void setGroupName(String groupName){
+        this.groupName = groupName;
     }
 
     private void setValue(boolean isProtected, String propertyName, String propertyValue) {
