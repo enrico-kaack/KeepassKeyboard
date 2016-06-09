@@ -1,8 +1,5 @@
 package de.slackspace.openkeepass.domain;
 
-import java.util.Calendar;
-import java.util.UUID;
-
 /**
  * A builder to create {@link Meta} objects.
  *
@@ -15,15 +12,15 @@ public class MetaBuilder implements MetaContract {
 
     String databaseDescription;
 
-    Calendar databaseNameChanged;
+    String databaseNameChanged;
 
-    Calendar databaseDescriptionChanged;
+    String databaseDescriptionChanged;
 
     int maintenanceHistoryDays;
 
-    UUID recycleBinUuid;
+    String recycleBinUuid;
 
-    Calendar recycleBinChanged;
+    String recycleBinChanged;
 
     boolean recycleBinEnabled;
 
@@ -79,12 +76,12 @@ public class MetaBuilder implements MetaContract {
         return this;
     }
 
-    public MetaBuilder databaseNameChanged(Calendar databaseNameChanged) {
+    public MetaBuilder databaseNameChanged(String databaseNameChanged) {
         this.databaseNameChanged = databaseNameChanged;
         return this;
     }
 
-    public MetaBuilder databaseDescriptionChanged(Calendar databaseDescriptionChanged) {
+    public MetaBuilder databaseDescriptionChanged(String databaseDescriptionChanged) {
         this.databaseDescriptionChanged = databaseDescriptionChanged;
         return this;
     }
@@ -94,12 +91,12 @@ public class MetaBuilder implements MetaContract {
         return this;
     }
 
-    public MetaBuilder recycleBinUuid(UUID recycleBinUuid) {
+    public MetaBuilder recycleBinUuid(String recycleBinUuid) {
         this.recycleBinUuid = recycleBinUuid;
         return this;
     }
 
-    public MetaBuilder recycleBinChanged(Calendar recycleBinChanged) {
+    public MetaBuilder recycleBinChanged(String recycleBinChanged) {
         this.recycleBinChanged = recycleBinChanged;
         return this;
     }
@@ -149,12 +146,12 @@ public class MetaBuilder implements MetaContract {
     }
 
     @Override
-    public Calendar getDatabaseNameChanged() {
+    public String getDatabaseNameChanged() {
         return databaseNameChanged;
     }
 
     @Override
-    public Calendar getDatabaseDescriptionChanged() {
+    public String getDatabaseDescriptionChanged() {
         return databaseDescriptionChanged;
     }
 
@@ -164,12 +161,12 @@ public class MetaBuilder implements MetaContract {
     }
 
     @Override
-    public UUID getRecycleBinUuid() {
+    public String getRecycleBinUuid() {
         return recycleBinUuid;
     }
 
     @Override
-    public Calendar getRecycleBinChanged() {
+    public String getRecycleBinChanged() {
         return recycleBinChanged;
     }
 

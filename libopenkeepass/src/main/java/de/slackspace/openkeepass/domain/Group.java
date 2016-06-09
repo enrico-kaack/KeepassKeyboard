@@ -29,7 +29,7 @@ public class Group implements KeePassFileElement {
 
     @Element(name = "UUID", required = false)
     @XmlJavaTypeAdapter(UUIDXmlAdapter.class)
-    private UUID uuid;
+    private String uuid;
 
     @Element(name = "Name", required = false)
     private String name;
@@ -39,15 +39,15 @@ public class Group implements KeePassFileElement {
 
     private transient byte[] iconData;
 
-    @XmlElement(name = "CustomIconUUID")
-    @XmlJavaTypeAdapter(UUIDXmlAdapter.class)
-    private UUID customIconUUID;
+    @Element(name = "CustomIconUUID", required = false)
+    //@XmlJavaTypeAdapter(UUIDXmlAdapter.class)
+    private String customIconUUID;
 
     @XmlElement(name = "Times")
     private Times times;
 
-    @XmlElement(name = "IsExpanded")
-    @XmlJavaTypeAdapter(BooleanXmlAdapter.class)
+    @Element(name = "IsExpanded", required = false)
+    //@XmlJavaTypeAdapter(BooleanXmlAdapter.class)
     private Boolean isExpanded;
 
     @ElementList(name = "Entry", required = false, inline = true)
@@ -57,7 +57,7 @@ public class Group implements KeePassFileElement {
     private List<Group> groups = new ArrayList<Group>();
 
     Group() {
-        uuid = UUID.randomUUID();
+        uuid = UUID.randomUUID().toString();
     }
 
     public Group(GroupContract groupContract) {
@@ -77,7 +77,7 @@ public class Group implements KeePassFileElement {
      *
      * @return the Uuid of this group
      */
-    public UUID getUuid() {
+    public String getUuid() {
         return uuid;
     }
 
@@ -144,7 +144,7 @@ public class Group implements KeePassFileElement {
      *
      * @return the UUID of the custom icon or null
      */
-    public UUID getCustomIconUuid() {
+    public String getCustomIconUuid() {
         return customIconUUID;
     }
 

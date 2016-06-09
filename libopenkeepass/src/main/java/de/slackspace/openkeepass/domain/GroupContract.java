@@ -5,7 +5,7 @@ import java.util.UUID;
 
 public interface GroupContract {
 
-    UUID getUuid();
+    String getUuid();
 
     String getName();
 
@@ -17,7 +17,7 @@ public interface GroupContract {
 
     byte[] getIconData();
 
-    UUID getCustomIconUuid();
+    String getCustomIconUuid();
 
     List<Entry> getEntries();
 

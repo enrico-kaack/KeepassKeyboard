@@ -1,7 +1,6 @@
 package de.slackspace.openkeepass.domain;
 
 import java.util.Arrays;
-import java.util.UUID;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -19,11 +18,11 @@ import de.slackspace.openkeepass.domain.xml.adapter.UUIDXmlAdapter;
 @XmlAccessorType(XmlAccessType.FIELD)
 public class CustomIcon {
 
-    @XmlElement(name = "UUID")
+    @XmlElement(name = "UUID", required = false)
     @XmlJavaTypeAdapter(UUIDXmlAdapter.class)
-    private UUID uuid;
+    private String uuid;
 
-    @XmlElement(name = "Data")
+    @XmlElement(name = "Data", required = false)
     private byte[] data;
 
     CustomIcon() {
@@ -39,7 +38,7 @@ public class CustomIcon {
      *
      * @return the uuid of the icon
      */
-    public UUID getUuid() {
+    public String getUuid() {
         return uuid;
     }
 

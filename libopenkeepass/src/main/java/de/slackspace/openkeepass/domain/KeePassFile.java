@@ -1,8 +1,10 @@
 package de.slackspace.openkeepass.domain;
 
+import org.simpleframework.xml.Element;
+import org.simpleframework.xml.Root;
+
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -16,14 +18,14 @@ import de.slackspace.openkeepass.domain.filter.ListFilter;
  * A KeePassFile represents the structure of a KeePass database. This is the
  * central entry point to read data from the KeePass database.
  */
-@XmlRootElement(name = "KeePassFile")
+@Root(name = "KeePassFile", strict = false)
 @XmlAccessorType(XmlAccessType.FIELD)
 public class KeePassFile implements KeePassFileElement {
 
-    @XmlElement(name = "Meta")
+    @Element(name = "Meta", required = false)
     private Meta meta;
 
-    @XmlElement(name = "Root")
+    @Element(name = "Root", required = false)
     private Group root;
 
     KeePassFile() {
@@ -271,7 +273,7 @@ public class KeePassFile implements KeePassFileElement {
      *            the uuid which should be searched
      * @return the found entry or null
      */
-    public Entry getEntryByUUID(final UUID UUID) {
+    public Entry getEntryByUUID(final String UUID) {
         List<Entry> allEntries = getEntries();
 
         List<Entry> entries = ListFilter.filter(allEntries, new Filter<Entry>() {
@@ -301,7 +303,7 @@ public class KeePassFile implements KeePassFileElement {
      *            the uuid which should be searched
      * @return the found group or null
      */
-    public Group getGroupByUUID(final UUID UUID) {
+    public Group getGroupByUUID(final String UUID) {
         List<Group> allGroups = getGroups();
 
         List<Group> groups = ListFilter.filter(allGroups, new Filter<Group>() {

@@ -3,13 +3,8 @@ package de.slackspace.openkeepass.domain;
 import org.simpleframework.xml.Element;
 import org.simpleframework.xml.Root;
 
-import java.util.Calendar;
-import java.util.UUID;
-
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 import de.slackspace.openkeepass.domain.xml.adapter.BooleanXmlAdapter;
@@ -24,42 +19,42 @@ import de.slackspace.openkeepass.domain.xml.adapter.UUIDXmlAdapter;
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Meta {
 
-    @Element(name = "Generator")
+    @Element(name = "Generator", required = false)
     private String generator;
 
-    @Element(name = "DatabaseName")
+    @Element(name = "DatabaseName", required = false)
     private String databaseName;
 
-    @Element(name = "DatabaseDescription")
+    @Element(name = "DatabaseDescription", required = false)
     private String databaseDescription;
 
-    @Element(name = "DatabaseNameChanged")
-    private Calendar databaseNameChanged;
+    @Element(name = "DatabaseNameChanged", required = false)
+    private String databaseNameChanged;
 
-    @Element(name = "DatabaseDescriptionChanged")
-    private Calendar databaseDescriptionChanged;
+    @Element(name = "DatabaseDescriptionChanged", required = false)
+    private String databaseDescriptionChanged;
 
-    @Element(name = "MaintenanceHistoryDays")
+    @Element(name = "MaintenanceHistoryDays", required = false)
     private int maintenanceHistoryDays;
 
-    @Element(name = "RecycleBinUUID")
+    @Element(name = "RecycleBinUUID", required = false)
     @XmlJavaTypeAdapter(UUIDXmlAdapter.class)
-    private UUID recycleBinUuid;
+    private String recycleBinUuid;
 
-    @Element(name = "RecycleBinChanged")
-    private Calendar recycleBinChanged;
+    @Element(name = "RecycleBinChanged", required = false)
+    private String recycleBinChanged;
 
-    @Element(name = "RecycleBinEnabled")
+    @Element(name = "RecycleBinEnabled", required = false)
     @XmlJavaTypeAdapter(BooleanXmlAdapter.class)
     private Boolean recycleBinEnabled;
 
-    @Element(name = "HistoryMaxItems")
+    @Element(name = "HistoryMaxItems", required = false)
     private long historyMaxItems;
 
-    @Element(name = "HistoryMaxSize")
+    @Element(name = "HistoryMaxSize", required = false)
     private long historyMaxSize;
 
-    @Element(name = "CustomIcons")
+    @Element(name = "CustomIcons", required = false)
     private CustomIcons customIcons;
 
     Meta() {
@@ -92,11 +87,11 @@ public class Meta {
         return generator;
     }
 
-    public Calendar getDatabaseNameChanged() {
+    public String getDatabaseNameChanged() {
         return databaseNameChanged;
     }
 
-    public Calendar getDatabaseDescriptionChanged() {
+    public String getDatabaseDescriptionChanged() {
         return databaseDescriptionChanged;
     }
 
@@ -104,11 +99,11 @@ public class Meta {
         return maintenanceHistoryDays;
     }
 
-    public UUID getRecycleBinUuid() {
+    public String getRecycleBinUuid() {
         return recycleBinUuid;
     }
 
-    public Calendar getRecycleBinChanged() {
+    public String getRecycleBinChanged() {
         return recycleBinChanged;
     }
 

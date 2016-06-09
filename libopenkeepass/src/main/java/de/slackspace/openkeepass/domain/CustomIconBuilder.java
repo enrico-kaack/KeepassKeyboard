@@ -1,14 +1,12 @@
 package de.slackspace.openkeepass.domain;
 
-import java.util.UUID;
-
 /**
  * A builder to create {@link CustomIcon} objects.
  *
  */
 public class CustomIconBuilder implements CustomIconContract {
 
-    UUID uuid;
+    String uuid;
 
     byte[] data;
 
@@ -21,7 +19,7 @@ public class CustomIconBuilder implements CustomIconContract {
         this.data = customIcon.getData();
     }
 
-    public CustomIconBuilder uuid(UUID uuid) {
+    public CustomIconBuilder uuid(String uuid) {
         this.uuid = uuid;
         return this;
     }
@@ -41,7 +39,7 @@ public class CustomIconBuilder implements CustomIconContract {
     }
 
     @Override
-    public UUID getUuid() {
+    public String getUuid() {
         return uuid;
     }
 

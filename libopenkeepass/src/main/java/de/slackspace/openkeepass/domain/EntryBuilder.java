@@ -10,7 +10,7 @@ import java.util.UUID;
  */
 public class EntryBuilder implements EntryContract {
 
-    private UUID uuid;
+    private String uuid;
 
     private History history;
 
@@ -30,7 +30,7 @@ public class EntryBuilder implements EntryContract {
 
     private byte[] iconData;
 
-    private UUID customIconUUID;
+    private String customIconUUID;
 
     private Times times;
 
@@ -40,7 +40,7 @@ public class EntryBuilder implements EntryContract {
      * Creates a new builder with a random UUID.
      */
     public EntryBuilder() {
-        this.uuid = UUID.randomUUID();
+        this.uuid = UUID.randomUUID().toString();
     }
 
     /**
@@ -49,9 +49,9 @@ public class EntryBuilder implements EntryContract {
      * @param uuid
      *            the UUID which should be used
      */
-    public EntryBuilder(UUID uuid) {
-        this.uuid = uuid;
-    }
+    /*public EntryBuilder(String uuid) {
+      *  this.uuid = uuid;
+    }*/
 
     /**
      * Creates a new builder with the given title.
@@ -94,7 +94,7 @@ public class EntryBuilder implements EntryContract {
         return this;
     }
 
-    public EntryBuilder uuid(UUID uuid) {
+    public EntryBuilder uuid(String uuid) {
         this.uuid = uuid;
         return this;
     }
@@ -134,7 +134,7 @@ public class EntryBuilder implements EntryContract {
         return this;
     }
 
-    public EntryBuilder customIconUuid(UUID uuid) {
+    public EntryBuilder customIconUuid(String uuid) {
         this.customIconUUID = uuid;
         return this;
     }
@@ -178,7 +178,7 @@ public class EntryBuilder implements EntryContract {
     }
 
     @Override
-    public UUID getUuid() {
+    public String getUuid() {
         return uuid;
     }
 
@@ -193,7 +193,7 @@ public class EntryBuilder implements EntryContract {
     }
 
     @Override
-    public UUID getCustomIconUUID() {
+    public String getCustomIconUUID() {
         return customIconUUID;
     }
 

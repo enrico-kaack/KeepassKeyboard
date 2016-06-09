@@ -1,10 +1,8 @@
 package de.slackspace.openkeepass.domain;
 
-import java.util.UUID;
-
 public interface CustomIconContract {
 
-    UUID getUuid();
+    String getUuid();
 
     byte[] getData();
 }

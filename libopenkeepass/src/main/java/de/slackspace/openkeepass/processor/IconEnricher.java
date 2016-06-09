@@ -74,7 +74,7 @@ public class IconEnricher {
         group.getEntries().addAll(addList);
     }
 
-    private byte[] getIconData(UUID customIconUuid, int stockIconId, CustomIcons iconLibrary) {
+    private byte[] getIconData(String customIconUuid, int stockIconId, CustomIcons iconLibrary) {
         byte[] iconData;
 
         if (customIconUuid != null) {

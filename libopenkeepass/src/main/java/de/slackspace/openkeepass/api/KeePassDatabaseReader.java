@@ -57,7 +57,8 @@ public class KeePassDatabaseReader {
         KeePassFile unprocessedKeepassFile = keePassDatabaseXmlParser.fromXml(new ByteArrayInputStream(decompressed));
         new ProtectedValueProcessor().processProtectedValues(new DecryptionStrategy(protectedStringCrypto), unprocessedKeepassFile);
 
-        return new IconEnricher().enrichNodesWithIconData(unprocessedKeepassFile);
+       // return new IconEnricher().enrichNodesWithIconData(unprocessedKeepassFile);
+        return unprocessedKeepassFile;
     }
 
     private ProtectedStringCrypto getProtectedStringCrypto() {

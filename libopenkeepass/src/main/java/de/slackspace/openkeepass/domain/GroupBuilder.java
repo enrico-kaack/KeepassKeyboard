@@ -6,7 +6,7 @@ import java.util.UUID;
 
 public class GroupBuilder implements GroupContract {
 
-    private UUID uuid;
+    private String uuid;
 
     private String name;
 
@@ -18,14 +18,14 @@ public class GroupBuilder implements GroupContract {
 
     private byte[] iconData;
 
-    private UUID customIconUuid;
+    private String customIconUuid;
 
     private List<Entry> entries = new ArrayList<Entry>();
 
     private List<Group> groups = new ArrayList<Group>();
 
     public GroupBuilder() {
-        this.uuid = UUID.randomUUID();
+        this.uuid = UUID.randomUUID().toString();
     }
 
     public GroupBuilder(String name) {
@@ -64,7 +64,7 @@ public class GroupBuilder implements GroupContract {
         return this;
     }
 
-    public GroupBuilder customIconUuid(UUID uuid) {
+    public GroupBuilder customIconUuid(String uuid) {
         this.customIconUuid = uuid;
         return this;
     }
@@ -114,7 +114,7 @@ public class GroupBuilder implements GroupContract {
     }
 
     @Override
-    public UUID getUuid() {
+    public String getUuid() {
         return uuid;
     }
 
@@ -144,7 +144,7 @@ public class GroupBuilder implements GroupContract {
     }
 
     @Override
-    public UUID getCustomIconUuid() {
+    public String getCustomIconUuid() {
         return customIconUuid;
     }
 

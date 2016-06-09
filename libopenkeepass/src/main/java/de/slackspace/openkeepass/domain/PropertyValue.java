@@ -1,5 +1,10 @@
 package de.slackspace.openkeepass.domain;
 
+import org.simpleframework.xml.Attribute;
+import org.simpleframework.xml.Element;
+import org.simpleframework.xml.Root;
+import org.simpleframework.xml.Text;
+
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
@@ -18,15 +23,16 @@ import de.slackspace.openkeepass.domain.xml.adapter.BooleanXmlAdapter;
  * passwords are protected.
  *
  */
-@XmlRootElement
+
+@Root(strict = false)
 @XmlAccessorType(XmlAccessType.FIELD)
 public class PropertyValue {
 
-    @XmlAttribute(name = "Protected")
+    @Attribute(name = "Protected", required = false)
     @XmlJavaTypeAdapter(BooleanXmlAdapter.class)
     private Boolean isProtected;
 
-    @XmlValue
+    @Text(required = false)
     private String value;
 
     PropertyValue() {

@@ -1,8 +1,5 @@
 package de.slackspace.openkeepass.domain;
 
-import java.util.Calendar;
-import java.util.UUID;
-
 public interface MetaContract {
 
     String getGenerator();
@@ -11,15 +8,15 @@ public interface MetaContract {
 
     String getDatabaseDescription();
 
-    Calendar getDatabaseNameChanged();
+    String getDatabaseNameChanged();
 
-    Calendar getDatabaseDescriptionChanged();
+    String getDatabaseDescriptionChanged();
 
     int getMaintenanceHistoryDays();
 
-    UUID getRecycleBinUuid();
+    String getRecycleBinUuid();
 
-    Calendar getRecycleBinChanged();
+    String getRecycleBinChanged();
 
     boolean getRecycleBinEnabled();
 

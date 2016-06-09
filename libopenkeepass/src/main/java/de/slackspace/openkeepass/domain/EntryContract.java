@@ -1,17 +1,16 @@
 package de.slackspace.openkeepass.domain;
 
 import java.util.List;
-import java.util.UUID;
 
 public interface EntryContract {
 
-    UUID getUuid();
+    String getUuid();
 
     byte[] getIconData();
 
     int getIconId();
 
-    UUID getCustomIconUUID();
+    String getCustomIconUUID();
 
     String getTitle();
 

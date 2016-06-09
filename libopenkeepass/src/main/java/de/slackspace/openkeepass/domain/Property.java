@@ -1,5 +1,8 @@
 package de.slackspace.openkeepass.domain;
 
+import org.simpleframework.xml.Element;
+import org.simpleframework.xml.Root;
+
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
@@ -10,14 +13,14 @@ import javax.xml.bind.annotation.XmlRootElement;
  * or password of an Entry are represented with this class.
  *
  */
-@XmlRootElement
+@Root(name = "String", strict = false)
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Property implements KeePassFileElement {
 
-    @XmlElement(name = "Key")
+    @Element(name = "Key", required = false)
     private String key;
 
-    @XmlElement(name = "Value")
+    @Element(name = "Value", required = false)
     private PropertyValue propertyValue;
 
     Property() {

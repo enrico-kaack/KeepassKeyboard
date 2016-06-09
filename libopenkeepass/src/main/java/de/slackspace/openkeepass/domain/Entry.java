@@ -11,7 +11,6 @@ import java.util.UUID;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 import de.slackspace.openkeepass.domain.xml.adapter.UUIDXmlAdapter;
@@ -42,16 +41,16 @@ public class Entry implements KeePassFileElement {
 
     @Element(name = "UUID", required = true)
     @XmlJavaTypeAdapter(UUIDXmlAdapter.class)
-    private UUID uuid;
+    private String uuid;
 
-    @Element(name = "IconID", required = false)
+   // @Element(name = "IconID", required = false)
     private int iconId = 0;
 
     private transient byte[] iconData;
 
     @Element(name = "IconID", required = false)
     @XmlJavaTypeAdapter(UUIDXmlAdapter.class)
-    private UUID customIconUUID;
+    private String customIconUUID;
 
     @ElementList(name = "String", required = false, inline = true)
     private List<Property> properties = new ArrayList<Property>();
@@ -63,7 +62,7 @@ public class Entry implements KeePassFileElement {
     private Times times;
 
     Entry() {
-        this.uuid = UUID.randomUUID();
+        this.uuid = UUID.randomUUID().toString();
     }
 
     public Entry(EntryContract entryContract) {
@@ -83,7 +82,7 @@ public class Entry implements KeePassFileElement {
         this.properties.addAll(entryContract.getCustomPropertyList());
     }
 
-    public UUID getUuid() {
+    public String getUuid() {
         return uuid;
     }
 
@@ -101,7 +100,7 @@ public class Entry implements KeePassFileElement {
      *
      * @return the uuid of the custom icon or null
      */
-    public UUID getCustomIconUuid() {
+    public String getCustomIconUuid() {
         return customIconUUID;
     }
 
