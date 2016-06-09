@@ -9,6 +9,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.ListView;
 
 import java.io.File;
 import java.security.Security;
@@ -48,6 +49,10 @@ public class Selection extends AppCompatActivity {
     private void loadDatabaseAndEntry() {
         kee.unlockDatabase(path_to_db, "1234");
         List<Entry> entries = kee.getAllEntries();
+
+        ListView lv_entries = (ListView)findViewById(R.id.lv_entries);
+        EntryListAdapter adapter = new EntryListAdapter(this, entries);
+        lv_entries.setAdapter(adapter);
     }
 
     private void checkForInputPathAndAskForIfNeccessary() {
