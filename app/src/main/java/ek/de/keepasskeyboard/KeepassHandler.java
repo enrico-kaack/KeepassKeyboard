@@ -21,7 +21,7 @@ public class KeepassHandler {
     }
 
     public void unlockDatabase(String file, String password){
-        KeePassFile database = KeePassDatabase.getInstance(file).openDatabase(password);
+        database = KeePassDatabase.getInstance(file).openDatabase(password);
 
     }
 
