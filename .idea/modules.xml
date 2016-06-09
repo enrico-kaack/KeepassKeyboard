@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/KeepassKeyboard.iml" filepath="$PROJECT_DIR$/KeepassKeyboard.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Lib_keepass/Lib_keepass.iml" filepath="$PROJECT_DIR$/Lib_keepass/Lib_keepass.iml" />
+      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/libopenkeepass/libopenkeepass.iml" filepath="$PROJECT_DIR$/libopenkeepass/libopenkeepass.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Lib_keepass/openkeepass/openkeepass.iml" filepath="$PROJECT_DIR$/Lib_keepass/openkeepass/openkeepass.iml" />
+    </modules>
+  </component>
+</project>

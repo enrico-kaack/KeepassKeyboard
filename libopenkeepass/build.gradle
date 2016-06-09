@@ -1,0 +1,21 @@
+apply plugin: 'java'
+targetCompatibility = 1.7
+targetCompatibility = 1.7
+repositories {
+    mavenCentral()
+    maven { url "https://jitpack.io" }
+
+}
+configurations {
+    compile.exclude module: 'stax'
+    compile.exclude module: 'stax-api'
+    compile.exclude module: 'xpp3'
+}
+dependencies {
+    compile fileTree(include: ['*.jar'], dir: 'libs')
+    compile 'org.simpleframework:simple-xml:2.7.1'
+    compile 'com.madgag.spongycastle:core:1.51.0.0'
+    compile 'com.madgag.spongycastle:prov:1.51.0.0'
+    compile 'com.madgag.spongycastle:pg:1.51.0.0'
+    compile 'com.madgag.spongycastle:pkix:1.51.0.0'
+}
