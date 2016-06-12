@@ -1,14 +1,18 @@
 package ek.de.keepasskeyboard;
 
 import android.Manifest;
+import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.preference.PreferenceManager;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import java.io.File;
@@ -18,8 +22,9 @@ import java.util.List;
 import de.slackspace.openkeepass.domain.Entry;
 
 
-public class Selection extends AppCompatActivity {
+public class Selection extends Activity {
     SharedPreferences sharedPref;
+    BluetoothModul blue;
     String path_to_db;
     KeepassHandler kee;
 
@@ -38,12 +43,26 @@ public class Selection extends AppCompatActivity {
 
         }
 
-        //You can change the default filename using the public variable "Default_File_Name"
-        //fileOpenDialog.default_file_name = editFile.getText().toString();
-        //fileOpenDialog.chooseFile_or_Dir();
 
 
 
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        handleBluetooth();
+    }
+
+    private void handleBluetooth() {
+         blue = new BluetoothModul();
+
+        blue.enable();
+        if (sharedPref.getString("DEVICE_MAC", null) == null){
+            blue.connect(this);
+        }else{
+            blue.connect(sharedPref.getString("DEVICE_MAC", null));
+        }
     }
 
     private void loadDatabaseAndEntry() {
@@ -51,13 +70,20 @@ public class Selection extends AppCompatActivity {
         List<Entry> entries = kee.getAllEntries();
 
         ListView lv_entries = (ListView)findViewById(R.id.lv_entries);
-        EntryListAdapter adapter = new EntryListAdapter(this, entries);
+        final EntryListAdapter adapter = new EntryListAdapter(this, entries);
         lv_entries.setAdapter(adapter);
+
+        lv_entries.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                blue.write(adapter.getItem(position).getPassword());
+            }
+        });
     }
 
     private void checkForInputPathAndAskForIfNeccessary() {
         //Get a SharedPreference Object
-        sharedPref = getPreferences(Context.MODE_PRIVATE);
+        sharedPref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
 
         //read Value for DB-Path
         path_to_db = sharedPref.getString("DB_PATH", "null");

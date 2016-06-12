@@ -44,5 +44,8 @@ public class EntryListAdapter extends ArrayAdapter {
         return rowView;
     }
 
-
+    @Override
+    public Entry getItem(int position) {
+        return data.get(position);
+    }
 }
