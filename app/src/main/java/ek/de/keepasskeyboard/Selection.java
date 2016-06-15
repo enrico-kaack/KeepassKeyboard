@@ -23,7 +23,7 @@ import java.util.List;
 import de.slackspace.openkeepass.domain.Entry;
 
 
-public class Selection extends Activity {
+public class Selection extends AppCompatActivity {
     SharedPreferences sharedPref;
     BluetoothModul blue;
     String path_to_db;

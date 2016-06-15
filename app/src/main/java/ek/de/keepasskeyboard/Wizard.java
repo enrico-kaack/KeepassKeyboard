@@ -3,10 +3,11 @@ package ek.de.keepasskeyboard;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-public class Wizard extends FragmentActivity  implements OnWizardNavigation{
+public class Wizard extends AppCompatActivity implements OnWizardNavigation{
     public static final int FRAG_MASTER_PW = 2;
     public static final int FRAG_PW = 3;
     public static final int FRAG_PIN = 4;
@@ -16,6 +17,7 @@ public class Wizard extends FragmentActivity  implements OnWizardNavigation{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_wizard);
+
         // Check that the activity is using the layout version with
         // the fragment_container FrameLayout
         if (findViewById(R.id.fragment_container) != null) {
