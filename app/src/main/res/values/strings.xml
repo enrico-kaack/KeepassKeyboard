@@ -1,3 +1,14 @@
 <resources>
     <string name="app_name">KeepassKeyboard</string>
+    <string name="text_masterpw">You have to insert your Master Passwort every time you open the app to send a passwort to the keystick.</string>
+    <string name="title_security">Security</string>
+    <string name="title_comfort">Comfort</string>
+    <string name="title_masterpw">Master Password</string>
+    <string name="title_encrptMP">Encrypt Master Password with an extra Encryption Key</string>
+    <string name="text_encryptMP">Encrypt your MAster Password by using an extra password. As an advantage, you can take a passwort, you can input on a mobile device more easily.</string>
+    <string name="title_pin">PIN</string>
+    <string name="text_pin">Protect you Master password with a numeric PIN</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

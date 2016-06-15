@@ -3,6 +3,7 @@ package ek.de.keepasskeyboard;
 import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.preference.PreferenceManager;
@@ -26,6 +27,7 @@ public class Selection extends Activity {
     SharedPreferences sharedPref;
     BluetoothModul blue;
     String path_to_db;
+    int encyrptionMethod = -1;
     KeepassHandler kee;
 
     @Override
@@ -33,25 +35,35 @@ public class Selection extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_selection);
 
+        //Get a SharedPreference Object
+        sharedPref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+
         kee = new KeepassHandler();
         handlePermissions();
 
+        checkForEncryptionMethodAndAskForIfNeccessay();
         checkForInputPathAndAskForIfNeccessary();
 
-        if (path_to_db != null && !path_to_db.equals("null")) {
-            loadDatabaseAndEntry();
+    }
 
-        }
-
-
-
-
+    private void checkForEncryptionMethodAndAskForIfNeccessay() {
+        encyrptionMethod = sharedPref.getInt("ENCRYPTION_MODE", -1);
+        //if (encyrptionMethod == -1){
+            Intent wizard = new Intent(this, Wizard.class);
+            startActivity(wizard);
+        //}
     }
 
     @Override
     protected void onResume() {
         super.onResume();
         handleBluetooth();
+
+
+        if (path_to_db != null && !path_to_db.equals("null") && encyrptionMethod != -1) {
+            loadDatabaseAndEntry();
+
+        }
     }
 
     private void handleBluetooth() {
@@ -82,8 +94,7 @@ public class Selection extends Activity {
     }
 
     private void checkForInputPathAndAskForIfNeccessary() {
-        //Get a SharedPreference Object
-        sharedPref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+
 
         //read Value for DB-Path
         path_to_db = sharedPref.getString("DB_PATH", "null");
