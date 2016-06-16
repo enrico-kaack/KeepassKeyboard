@@ -39,8 +39,8 @@ public class EncryptionModul implements OnPasswordInputed {
         try {
             onPasswordHandler = (OnPasswordInputed) context;
         } catch (ClassCastException e) {
-            throw new ClassCastException(context.toString()
-                    + " must implement OnHeadlineSelectedListener");
+
+                    Log.d("KEEPASS", " should implement OnPasswordInputed");
         }
     }
 

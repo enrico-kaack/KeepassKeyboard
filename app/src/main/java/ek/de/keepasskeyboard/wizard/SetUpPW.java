@@ -50,6 +50,8 @@ public class SetUpPW extends Fragment {
                 if (pw.getText().toString().length() > 0 && mpw.getText().toString().length() > 0 && pw.getText().toString().equals(pw_repeat.getText().toString()) && mpw.getText().toString().equals(mpw_repeat.getText().toString())){
                     EncryptionModul encryptionModul = new EncryptionModul(getActivity());
                     encryptionModul.encryptMPByPassword(pw.getText().toString(), mpw.getText().toString());
+
+                    onNavigation.goToFragment(Wizard.FRAG_BLUETOOTH_DEVICE_LIST);
                 }
 
 

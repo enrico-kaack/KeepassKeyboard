@@ -6,11 +6,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 import ek.de.keepasskeyboard.R;
+import ek.de.keepasskeyboard.connection.DeviceList;
 
 public class Wizard extends AppCompatActivity implements OnWizardNavigation {
     public static final int FRAG_MASTER_PW = 2;
     public static final int FRAG_PW = 3;
     public static final int FRAG_PIN = 4;
+    public static final int FRAG_BLUETOOTH_DEVICE_LIST = 5;
 
 
     @Override
@@ -50,6 +52,9 @@ public class Wizard extends AppCompatActivity implements OnWizardNavigation {
                 break;
             case FRAG_PW:
                 frag = new SetUpPW();
+                break;
+            case FRAG_BLUETOOTH_DEVICE_LIST:
+                frag = new DeviceList();
                 break;
             default:
                 frag = null;

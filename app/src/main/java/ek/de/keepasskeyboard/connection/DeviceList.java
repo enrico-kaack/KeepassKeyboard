@@ -11,8 +11,11 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.Preference;
 import android.preference.PreferenceManager;
+import android.support.v4.app.Fragment;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -26,27 +29,16 @@ import java.util.Set;
 
 import ek.de.keepasskeyboard.R;
 
-/**
- * This Activity appears as a dialog. It lists any paired devices and
- * devices detected in the area after discovery. When a device is chosen
- * by the user, the MAC address of the device is sent back to the parent
- * Activity in the result Intent.
- */
-public class DeviceListActivity extends Activity {
 
-    /**
-     * Tag for Log
-     */
-    private static final String TAG = "DeviceListActivity";
+public class DeviceList extends Fragment {
 
-    /**
-     * Return Intent extra
-     */
+
+    private static final String TAG = "KEEPASS";
+
+
     public static String EXTRA_DEVICE_ADDRESS = "device_address";
 
-    /**
-     * Member fields
-     */
+
     private BluetoothAdapter mBtAdapter;
 
     /**
@@ -54,15 +46,17 @@ public class DeviceListActivity extends Activity {
      */
     private ArrayAdapter<String> mNewDevicesArrayAdapter;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        // Setup the window
-        requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
-        setContentView(R.layout.activity_device_list);
 
-        // Set result CANCELED in case the user backs out
-        setResult(Activity.RESULT_CANCELED);
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+        return inflater.inflate(R.layout.activity_device_list, container, false);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
 
         // Get the local Bluetooth adapter
         mBtAdapter = BluetoothAdapter.getDefaultAdapter();
@@ -71,27 +65,27 @@ public class DeviceListActivity extends Activity {
 
 
         ArrayAdapter<String> pairedDevicesArrayAdapter =
-                new ArrayAdapter<String>(this, R.layout.item_discovered_device);
-        mNewDevicesArrayAdapter = new ArrayAdapter<String>(this, R.layout.item_discovered_device);
+                new ArrayAdapter<String>(getActivity(), R.layout.item_discovered_device);
+        mNewDevicesArrayAdapter = new ArrayAdapter<String>(getActivity(), R.layout.item_discovered_device);
 
 
         // Find and set up the ListView for newly discovered devices
-        ListView pairedDeviceListView = (ListView) findViewById(R.id.lv_pairedDevice);
+        ListView pairedDeviceListView = (ListView) getView().findViewById(R.id.lv_pairedDevice);
         pairedDeviceListView.setAdapter(pairedDevicesArrayAdapter);
         pairedDeviceListView.setOnItemClickListener(mDeviceClickListener);
 
         // Find and set up the ListView for newly discovered devices
-        ListView newDevicesListView = (ListView) findViewById(R.id.lv_discoveredDevices);
+        ListView newDevicesListView = (ListView) getView().findViewById(R.id.lv_discoveredDevices);
         newDevicesListView.setAdapter(mNewDevicesArrayAdapter);
         newDevicesListView.setOnItemClickListener(mDeviceClickListener);
 
         // Register for broadcasts when a device is discovered
         IntentFilter filter = new IntentFilter(BluetoothDevice.ACTION_FOUND);
-        this.registerReceiver(mReceiver, filter);
+        getActivity().registerReceiver(mReceiver, filter);
 
         // Register for broadcasts when discovery has finished
         filter = new IntentFilter(BluetoothAdapter.ACTION_DISCOVERY_FINISHED);
-        this.registerReceiver(mReceiver, filter);
+        getActivity().registerReceiver(mReceiver, filter);
 
 
         // Get a set of currently paired devices
@@ -111,7 +105,14 @@ public class DeviceListActivity extends Activity {
     }
 
     @Override
-    protected void onDestroy() {
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        // Setup the window
+
+    }
+
+    @Override
+    public void onDestroy() {
         super.onDestroy();
 
         // Make sure we're not doing discovery anymore
@@ -120,7 +121,7 @@ public class DeviceListActivity extends Activity {
         }
 
         // Unregister broadcast listeners
-        this.unregisterReceiver(mReceiver);
+        getActivity().unregisterReceiver(mReceiver);
     }
 
     /**
@@ -158,18 +159,13 @@ public class DeviceListActivity extends Activity {
             String info = ((TextView) v).getText().toString();
             String address = info.substring(info.length() - 17);
 
-            SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+            SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getActivity().getApplicationContext());
             SharedPreferences.Editor editor = sharedPref.edit();
             editor.putString("DEVICE_MAC", address);
             editor.commit();
 
-            // Create the result Intent and include the MAC address
-            Intent intent = new Intent();
-            intent.putExtra(EXTRA_DEVICE_ADDRESS, address);
 
-            // Set result and finish this Activity
-            setResult(Activity.RESULT_OK, intent);
-            finish();
+
         }
     };
 

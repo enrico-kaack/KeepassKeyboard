@@ -60,7 +60,7 @@ public class BluetoothModul {
 
     public void connect(Context context){
         //Show a List with found devices
-        Intent discovery = new Intent(context, DeviceListActivity.class);
+        Intent discovery = new Intent(context, DeviceList.class);
         context.startActivity(discovery);
 
     }
