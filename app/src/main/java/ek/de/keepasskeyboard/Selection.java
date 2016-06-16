@@ -48,13 +48,7 @@ public class Selection extends AppCompatActivity implements OnPasswordInputed{
 
     }
 
-    private void checkForEncryptionMethodAndAskForIfNeccessay() {
-        encyrptionMethod = sharedPref.getInt("ENCRYPTION_MODE", -1);
-        //if (encyrptionMethod == -1){
-            Intent wizard = new Intent(this, Wizard.class);
-            startActivity(wizard);
-        //}
-    }
+
 
     @Override
     protected void onResume() {
@@ -67,6 +61,21 @@ public class Selection extends AppCompatActivity implements OnPasswordInputed{
            initilizeEncryption();
 
         }
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        blue.disable();
+
+    }
+
+    private void checkForEncryptionMethodAndAskForIfNeccessay() {
+        encyrptionMethod = sharedPref.getInt("ENCRYPTION_MODE", -1);
+        //if (encyrptionMethod == -1){
+        Intent wizard = new Intent(this, Wizard.class);
+        startActivity(wizard);
+        //}
     }
 
     private void initilizeEncryption() {

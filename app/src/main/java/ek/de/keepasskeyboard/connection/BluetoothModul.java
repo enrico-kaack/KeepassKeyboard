@@ -28,6 +28,7 @@ public class BluetoothModul {
 
     private  BluetoothAdapter blue;
     ConnectedThread connectedThread;
+    ConnectThread connectThread;
     private ListAdapter discoveredDevice;
 
     private UUID MY_UUID = UUID.fromString("00001101-0000-1000-8000-00805F9B34FB");
@@ -53,6 +54,11 @@ public class BluetoothModul {
 
     public  boolean disable(){
         if (blue.isEnabled()){
+            if (connectionStatus == CONNECTED){
+                connectedThread.cancel();
+            }else if (connectionStatus == CONNECTING){
+                connectThread.cancel();
+            }
             return blue.disable();
         }else{
             return false;
@@ -89,9 +95,9 @@ public class BluetoothModul {
     }
 
     private void establishConnection(BluetoothDevice device) {
-        ConnectThread connection = new ConnectThread(device);
+        connectThread = new ConnectThread(device);
         Log.d(TAG, "Connect to: " + device.getName() + device.getAddress());
-        connection.start();
+        connectThread.start();
     }
 
     private class ConnectThread extends Thread {
