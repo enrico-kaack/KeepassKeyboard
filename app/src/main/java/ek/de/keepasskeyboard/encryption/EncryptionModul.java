@@ -1,4 +1,4 @@
-package ek.de.keepasskeyboard;
+package ek.de.keepasskeyboard.encryption;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -14,16 +14,20 @@ import android.widget.EditText;
 import java.io.UnsupportedEncodingException;
 import java.security.GeneralSecurityException;
 
-import static ek.de.keepasskeyboard.AesCbcWithIntegrity.decryptString;
-import static ek.de.keepasskeyboard.AesCbcWithIntegrity.encrypt;
-import static ek.de.keepasskeyboard.AesCbcWithIntegrity.generateKeyFromPassword;
-import static ek.de.keepasskeyboard.AesCbcWithIntegrity.generateSalt;
-import static ek.de.keepasskeyboard.AesCbcWithIntegrity.saltString;
+import ek.de.keepasskeyboard.OnPasswordInputed;
+import ek.de.keepasskeyboard.R;
+import ek.de.keepasskeyboard.wizard.Wizard;
+
+import static ek.de.keepasskeyboard.encryption.AesCbcWithIntegrity.decryptString;
+import static ek.de.keepasskeyboard.encryption.AesCbcWithIntegrity.encrypt;
+import static ek.de.keepasskeyboard.encryption.AesCbcWithIntegrity.generateKeyFromPassword;
+import static ek.de.keepasskeyboard.encryption.AesCbcWithIntegrity.generateSalt;
+import static ek.de.keepasskeyboard.encryption.AesCbcWithIntegrity.saltString;
 
 /**
  * Created by Enrico on 16.06.2016.
  */
-public class EncryptionModul implements OnPasswordInputed{
+public class EncryptionModul implements OnPasswordInputed {
     Context context;
     OnPasswordInputed onPasswordHandler;
     OnPasswordInputed onPasswordHandlerLokal;

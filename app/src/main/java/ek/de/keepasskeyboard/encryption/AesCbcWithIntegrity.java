@@ -1,4 +1,4 @@
-package ek.de.keepasskeyboard;
+package ek.de.keepasskeyboard.encryption;
 
 /*
  * Copyright (c) 2014-2015 Tozny LLC

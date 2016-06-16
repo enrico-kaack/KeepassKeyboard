@@ -1,7 +1,6 @@
-package ek.de.keepasskeyboard;
+package ek.de.keepasskeyboard.wizard;
 
 import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
@@ -11,8 +10,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 
+import ek.de.keepasskeyboard.encryption.EncryptionModul;
+import ek.de.keepasskeyboard.R;
 
-public class Frag_PW_Input extends Fragment {
+
+public class SetUpPW extends Fragment {
     OnWizardNavigation onNavigation;
 
 

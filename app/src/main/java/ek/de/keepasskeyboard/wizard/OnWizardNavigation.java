@@ -1,4 +1,4 @@
-package ek.de.keepasskeyboard;
+package ek.de.keepasskeyboard.wizard;
 
 /**
  * Created by Enrico on 15.06.2016.

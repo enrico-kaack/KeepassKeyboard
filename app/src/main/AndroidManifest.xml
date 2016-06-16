@@ -20,9 +20,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".DeviceListActivity" />
-        <activity android:name=".SelectAuthentification" />
-        <activity android:name=".Wizard"></activity>
+        <activity android:name=".connection.DeviceListActivity" />
+        <activity android:name=".wizard.SelectAuthentification" />
+        <activity android:name=".wizard.Wizard"></activity>
     </application>
 
 </manifest>

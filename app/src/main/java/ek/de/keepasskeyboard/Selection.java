@@ -1,8 +1,6 @@
 package ek.de.keepasskeyboard;
 
 import android.Manifest;
-import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
@@ -17,10 +15,14 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 
 import java.io.File;
-import java.security.Security;
 import java.util.List;
 
 import de.slackspace.openkeepass.domain.Entry;
+import ek.de.keepasskeyboard.connection.BluetoothModul;
+import ek.de.keepasskeyboard.database.FilePicker;
+import ek.de.keepasskeyboard.database.KeepassHandler;
+import ek.de.keepasskeyboard.encryption.EncryptionModul;
+import ek.de.keepasskeyboard.wizard.Wizard;
 
 
 public class Selection extends AppCompatActivity implements OnPasswordInputed{

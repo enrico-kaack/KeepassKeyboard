@@ -1,4 +1,4 @@
-package ek.de.keepasskeyboard;
+package ek.de.keepasskeyboard.database;
 
 
 import java.util.List;

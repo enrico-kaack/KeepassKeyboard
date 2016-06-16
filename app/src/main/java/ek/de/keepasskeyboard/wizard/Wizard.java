@@ -1,13 +1,13 @@
-package ek.de.keepasskeyboard;
+package ek.de.keepasskeyboard.wizard;
 
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-public class Wizard extends AppCompatActivity implements OnWizardNavigation{
+import ek.de.keepasskeyboard.R;
+
+public class Wizard extends AppCompatActivity implements OnWizardNavigation {
     public static final int FRAG_MASTER_PW = 2;
     public static final int FRAG_PW = 3;
     public static final int FRAG_PIN = 4;
@@ -49,7 +49,7 @@ public class Wizard extends AppCompatActivity implements OnWizardNavigation{
                 frag = null;
                 break;
             case FRAG_PW:
-                frag = new Frag_PW_Input();
+                frag = new SetUpPW();
                 break;
             default:
                 frag = null;

@@ -1,4 +1,4 @@
-package ek.de.keepasskeyboard;
+package ek.de.keepasskeyboard.connection;
 
 import android.app.Activity;
 import android.bluetooth.BluetoothAdapter;
@@ -23,6 +23,8 @@ import android.widget.TextView;
 
 
 import java.util.Set;
+
+import ek.de.keepasskeyboard.R;
 
 /**
  * This Activity appears as a dialog. It lists any paired devices and

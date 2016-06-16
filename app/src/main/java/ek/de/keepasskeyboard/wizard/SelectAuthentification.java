@@ -1,19 +1,19 @@
-package ek.de.keepasskeyboard;
+package ek.de.keepasskeyboard.wizard;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.RadioButton;
+
+import ek.de.keepasskeyboard.R;
+import ek.de.keepasskeyboard.wizard.OnWizardNavigation;
+import ek.de.keepasskeyboard.wizard.Wizard;
 
 public class SelectAuthentification extends Fragment implements View.OnClickListener{
     int selectedElement = 0;
