@@ -20,12 +20,21 @@ import ek.de.keepasskeyboard.wizard.DeviceList;
  * Created by Enrico on 10.06.2016.
  */
 public class BluetoothModul {
+    public static short NOT_CONNECTED = 0;
+    public static short CONNECTING = 1;
+    public static short CONNECTED = 2;
+    private short connectionStatus;
+
+
     private  BluetoothAdapter blue;
     ConnectedThread connectedThread;
     private ListAdapter discoveredDevice;
 
     private UUID MY_UUID = UUID.fromString("00001101-0000-1000-8000-00805F9B34FB");
     private final String TAG = "KEEPASS_BLUETOOTH";
+
+
+
 
     public BluetoothModul() {
         blue = BluetoothAdapter.getDefaultAdapter();
@@ -112,12 +121,14 @@ public class BluetoothModul {
             try {
                 // Connect the device through the socket. This will block
                 // until it succeeds or throws an exception
+                connectionStatus = CONNECTING;
                 mmSocket.connect();
                 Log.d(TAG, "Connection SUCCESFULL");
             } catch (IOException connectException) {
                 // Unable to connect; close the socket and get out
                 try {
                     mmSocket.close();
+                    connectionStatus = NOT_CONNECTED;
                     Log.d(TAG, "Connection FAILED");
                     connectException.printStackTrace();
                 } catch (IOException closeException) {
@@ -134,6 +145,7 @@ public class BluetoothModul {
         public void cancel() {
             try {
                 mmSocket.close();
+                connectionStatus = NOT_CONNECTED;
             } catch (IOException e) { }
         }
     }
@@ -169,7 +181,7 @@ public class BluetoothModul {
             Log.i(TAG, "BEGIN mConnectedThread");
             byte[] buffer = new byte[1024];
             int bytes;
-
+            connectionStatus = CONNECTED;
             // Keep listening to the InputStream while connected
             while (true) {
                 try {
@@ -205,6 +217,7 @@ public class BluetoothModul {
         public void cancel() {
             try {
                 mmSocket.close();
+                connectionStatus = NOT_CONNECTED;
             } catch (IOException e) {
                 Log.e(TAG, "close() of connect socket failed", e);
             }
