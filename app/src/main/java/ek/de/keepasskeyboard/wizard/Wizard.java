@@ -9,10 +9,12 @@ import ek.de.keepasskeyboard.R;
 import ek.de.keepasskeyboard.connection.DeviceList;
 
 public class Wizard extends AppCompatActivity implements OnWizardNavigation {
+    public static final int EXIT = 0;
     public static final int FRAG_MASTER_PW = 2;
     public static final int FRAG_PW = 3;
     public static final int FRAG_PIN = 4;
     public static final int FRAG_BLUETOOTH_DEVICE_LIST = 5;
+    public static final int FRAG_ENCRYPTION_KEY = 6;
 
 
     @Override
@@ -56,6 +58,13 @@ public class Wizard extends AppCompatActivity implements OnWizardNavigation {
             case FRAG_BLUETOOTH_DEVICE_LIST:
                 frag = new DeviceList();
                 break;
+            case EXIT:
+                finish();
+                frag = null;
+                break;
+            case FRAG_ENCRYPTION_KEY:
+                frag = new EncryptionKeyInput();
+                break;
             default:
                 frag = null;
                 break;
@@ -69,11 +78,17 @@ public class Wizard extends AppCompatActivity implements OnWizardNavigation {
 
      // Replace whatever is in the fragment_container view with this fragment,
     // and add the transaction to the back stack so the user can navigate back
+        Fragment target = getFragmentByNumber(fragmentNumber);
+        if (target != null){
+            transaction.replace(R.id.fragment_container, target);
+            transaction.addToBackStack(null);
 
-        transaction.replace(R.id.fragment_container, getFragmentByNumber(fragmentNumber));
-        transaction.addToBackStack(null);
+            // Commit the transaction
+            transaction.commit();
+        }else{
+            finish();
+        }
 
-    // Commit the transaction
-        transaction.commit();
+
     }
 }

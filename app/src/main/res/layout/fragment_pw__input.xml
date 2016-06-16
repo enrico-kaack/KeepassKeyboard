@@ -65,7 +65,7 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
-        android:id="@+id/btn_yes"
+        android:id="@+id/btn_next"
         android:layout_gravity="right|bottom" />
 
 </FrameLayout>

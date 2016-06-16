@@ -28,9 +28,12 @@ import android.widget.TextView;
 import java.util.Set;
 
 import ek.de.keepasskeyboard.R;
+import ek.de.keepasskeyboard.wizard.OnWizardNavigation;
+import ek.de.keepasskeyboard.wizard.Wizard;
 
 
 public class DeviceList extends Fragment {
+    OnWizardNavigation onNavigation;
 
 
     private static final String TAG = "KEEPASS";
@@ -124,6 +127,18 @@ public class DeviceList extends Fragment {
         getActivity().unregisterReceiver(mReceiver);
     }
 
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        if (context instanceof OnWizardNavigation) {
+            onNavigation = (OnWizardNavigation) context;
+        } else {
+            throw new RuntimeException(context.toString()
+                    + " must implement OnFragmentInteractionListener");
+        }
+    }
+
+
     /**
      * Start device discover with the BluetoothAdapter
      */
@@ -163,6 +178,8 @@ public class DeviceList extends Fragment {
             SharedPreferences.Editor editor = sharedPref.edit();
             editor.putString("DEVICE_MAC", address);
             editor.commit();
+
+            onNavigation.goToFragment(Wizard.FRAG_ENCRYPTION_KEY);
 
 
 

@@ -36,7 +36,7 @@ public class SetUpPW extends Fragment {
     public void onResume() {
         super.onResume();
 
-        FloatingActionButton btn_next = (FloatingActionButton) getView().findViewById(R.id.btn_yes);
+        FloatingActionButton btn_next = (FloatingActionButton) getView().findViewById(R.id.btn_next);
         final EditText pw = (EditText)getView().findViewById(R.id.in_pw);
         final EditText pw_repeat = (EditText)getView().findViewById(R.id.in_pw_repeat);
         final EditText mpw = (EditText)getView().findViewById(R.id.in_mpw);
