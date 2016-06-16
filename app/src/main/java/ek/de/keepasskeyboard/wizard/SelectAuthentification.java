@@ -51,7 +51,7 @@ public class SelectAuthentification extends Fragment implements View.OnClickList
                 switch (selectedElement){
                     case R.id.rb_masterpw:
                         mode = 0;
-                        navigation = Wizard.FRAG_MASTER_PW;
+                        navigation = Wizard.FRAG_BLUETOOTH_DEVICE_LIST;
                         break;
                     case R.id.rb_pw:
                         mode = 1;
