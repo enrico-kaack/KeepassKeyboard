@@ -1,4 +1,4 @@
-package ek.de.keepasskeyboard.connection;
+package ek.de.keepasskeyboard.wizard;
 
 import android.app.Activity;
 import android.bluetooth.BluetoothAdapter;

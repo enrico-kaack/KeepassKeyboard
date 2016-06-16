@@ -14,6 +14,8 @@ import java.io.OutputStream;
 import java.util.Set;
 import java.util.UUID;
 
+import ek.de.keepasskeyboard.wizard.DeviceList;
+
 /**
  * Created by Enrico on 10.06.2016.
  */

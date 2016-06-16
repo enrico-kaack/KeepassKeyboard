@@ -6,7 +6,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 import ek.de.keepasskeyboard.R;
-import ek.de.keepasskeyboard.connection.DeviceList;
 
 public class Wizard extends AppCompatActivity implements OnWizardNavigation {
     public static final int EXIT = 0;
