@@ -14,7 +14,7 @@
             android:layout_height="wrap_content"
             android:inputType="textPassword"
             android:ems="10"
-            android:id="@+id/editText"
+            android:id="@+id/in_pw"
             android:layout_gravity="center_horizontal|top"
             android:password="false"
             android:singleLine="true"
@@ -27,12 +27,35 @@
             android:layout_height="wrap_content"
             android:inputType="textPassword"
             android:ems="10"
-            android:id="@+id/editText2"
+            android:id="@+id/in_pw_repeat"
             android:layout_gravity="top|center_horizontal"
             android:hint="Repeat Password"
-            android:layout_below="@+id/editText"
-            android:layout_alignLeft="@+id/editText"
-            android:layout_alignStart="@+id/editText" />
+            android:layout_below="@+id/in_pw"
+            android:layout_alignLeft="@+id/in_pw"
+            android:layout_alignStart="@+id/in_pw" />
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="textPassword"
+            android:ems="10"
+            android:id="@+id/in_mpw"
+            android:layout_below="@+id/in_pw_repeat"
+            android:layout_alignLeft="@+id/in_pw_repeat"
+            android:layout_alignStart="@+id/in_pw_repeat"
+            android:layout_marginTop="50dp"
+            android:hint="Master Password" />
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="textPassword"
+            android:ems="10"
+            android:id="@+id/in_mpw_repeat"
+            android:layout_below="@+id/in_mpw"
+            android:layout_alignLeft="@+id/in_mpw"
+            android:layout_alignStart="@+id/in_mpw"
+            android:hint="Repeat Master Password" />
     </RelativeLayout>
 
     <android.support.design.widget.FloatingActionButton
@@ -42,7 +65,7 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
-        android:id="@+id/btn_next"
+        android:id="@+id/btn_yes"
         android:layout_gravity="right|bottom" />
 
 </FrameLayout>

@@ -48,10 +48,10 @@ public class Selection extends AppCompatActivity {
 
     private void checkForEncryptionMethodAndAskForIfNeccessay() {
         encyrptionMethod = sharedPref.getInt("ENCRYPTION_MODE", -1);
-        //if (encyrptionMethod == -1){
+        if (encyrptionMethod == -1){
             Intent wizard = new Intent(this, Wizard.class);
             startActivity(wizard);
-        //}
+        }
     }
 
     @Override
@@ -78,19 +78,26 @@ public class Selection extends AppCompatActivity {
     }
 
     private void loadDatabaseAndEntry() {
-        kee.unlockDatabase(path_to_db, "1234");
-        List<Entry> entries = kee.getAllEntries();
+        EncryptionModul encryptionModul = new EncryptionModul(this);
+        String mpw = encryptionModul.decryptMPByPassword("1111");
 
-        ListView lv_entries = (ListView)findViewById(R.id.lv_entries);
-        final EntryListAdapter adapter = new EntryListAdapter(this, entries);
-        lv_entries.setAdapter(adapter);
+        if (mpw != null) {
+            kee.unlockDatabase(path_to_db, mpw);
+            List<Entry> entries = kee.getAllEntries();
 
-        lv_entries.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                blue.write(adapter.getItem(position).getPassword());
-            }
-        });
+            ListView lv_entries = (ListView) findViewById(R.id.lv_entries);
+            final EntryListAdapter adapter = new EntryListAdapter(this, entries);
+            lv_entries.setAdapter(adapter);
+
+            lv_entries.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    blue.write(adapter.getItem(position).getPassword());
+                }
+            });
+        }else {
+            Log.d("KEEPASS", "Unable to load/encrypt MPW");
+        }
     }
 
     private void checkForInputPathAndAskForIfNeccessary() {
