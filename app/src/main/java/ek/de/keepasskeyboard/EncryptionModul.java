@@ -1,9 +1,15 @@
 package ek.de.keepasskeyboard;
 
+import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.EditText;
 
 import java.io.UnsupportedEncodingException;
 import java.security.GeneralSecurityException;
@@ -17,12 +23,78 @@ import static ek.de.keepasskeyboard.AesCbcWithIntegrity.saltString;
 /**
  * Created by Enrico on 16.06.2016.
  */
-public class EncryptionModul {
+public class EncryptionModul implements OnPasswordInputed{
     Context context;
+    OnPasswordInputed onPasswordHandler;
+    OnPasswordInputed onPasswordHandlerLokal;
 
 
     public EncryptionModul(Context context) {
         this.context = context;
+        onPasswordHandlerLokal = this;
+        try {
+            onPasswordHandler = (OnPasswordInputed) context;
+        } catch (ClassCastException e) {
+            throw new ClassCastException(context.toString()
+                    + " must implement OnHeadlineSelectedListener");
+        }
+    }
+
+
+    public void getMasterPW(Activity activity){
+
+        SharedPreferences prefs =  PreferenceManager.getDefaultSharedPreferences(context.getApplicationContext());
+        switch (prefs.getInt("ENCRYPTION_MODE", -1)){
+            case Wizard.FRAG_MASTER_PW:
+                openDialogToGetPW(activity, "Master Password");
+                break;
+            case Wizard.FRAG_PIN:
+
+                break;
+            case Wizard.FRAG_PW:
+                openDialogToGetPW(activity, "Encryption Password");
+                break;
+            case -1:
+                break;
+        }
+
+
+    }
+
+    private void openDialogToGetPW(final Activity activity, String title) {
+        // Instantiate an AlertDialog.Builder with its constructor
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        builder.setTitle(title);
+        //Set Custom Layout
+        // Get the layout inflater
+       final LayoutInflater inflater = activity.getLayoutInflater();
+
+        // Inflate and set the layout for the dialog
+        // Pass null as the parent view because its going in the dialog layout
+        final View dialogView = inflater.inflate(R.layout.dialog_single_input, null);
+        builder.setView(dialogView);
+
+        final EditText in_pw = (EditText)dialogView.findViewById(R.id.in_password);
+
+        // Add action buttons
+        builder.setPositiveButton("Open DB", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int id) {
+
+                if (in_pw.getText().toString().length() > 0){
+                    onPasswordHandlerLokal.onPasswordAvailible(in_pw.getText().toString());
+                }
+            }
+        });
+        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+
+            }
+        });
+
+        // 3. Get the AlertDialog from create()
+        AlertDialog dialog = builder.create();
+        dialog.show();
     }
 
     public String decryptMPByPassword(String pw){
@@ -81,6 +153,28 @@ public class EncryptionModul {
         }catch (UnsupportedEncodingException e2){
             Log.d("KEEPASS", e2.getMessage());
             return false;
+        }
+    }
+
+    @Override
+    public void onMasterPWAvailible(String mpw) {
+
+    }
+
+    @Override
+    public void onPasswordAvailible(String pw) {
+        SharedPreferences prefs =  PreferenceManager.getDefaultSharedPreferences(context.getApplicationContext());
+        String masterPW = null;
+        switch (prefs.getInt("ENCRYPTION_MODE", -1)){
+            case Wizard.FRAG_MASTER_PW:
+                onPasswordHandler.onMasterPWAvailible(pw);
+                break;
+            case Wizard.FRAG_PIN:
+
+                break;
+            case Wizard.FRAG_PW:
+                onPasswordHandler.onMasterPWAvailible(decryptMPByPassword(pw));
+                break;
         }
     }
 }

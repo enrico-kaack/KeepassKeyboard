@@ -23,7 +23,7 @@ import java.util.List;
 import de.slackspace.openkeepass.domain.Entry;
 
 
-public class Selection extends AppCompatActivity {
+public class Selection extends AppCompatActivity implements OnPasswordInputed{
     SharedPreferences sharedPref;
     BluetoothModul blue;
     String path_to_db;
@@ -58,12 +58,18 @@ public class Selection extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         handleBluetooth();
-
+        path_to_db = sharedPref.getString("DB_PATH", null);
+        encyrptionMethod = sharedPref.getInt("ENCRYPTION_MODE", -1);
 
         if (path_to_db != null && !path_to_db.equals("null") && encyrptionMethod != -1) {
-            loadDatabaseAndEntry();
+           initilizeEncryption();
 
         }
+    }
+
+    private void initilizeEncryption() {
+        EncryptionModul encryptionModul = new EncryptionModul(this);
+        encryptionModul.getMasterPW(this);
     }
 
     private void handleBluetooth() {
@@ -77,12 +83,11 @@ public class Selection extends AppCompatActivity {
         }
     }
 
-    private void loadDatabaseAndEntry() {
-        EncryptionModul encryptionModul = new EncryptionModul(this);
-        String mpw = encryptionModul.decryptMPByPassword("1111");
+    private void loadDatabaseAndEntry(String pw) {
 
-        if (mpw != null) {
-            kee.unlockDatabase(path_to_db, mpw);
+
+        if (pw != null) {
+            kee.unlockDatabase(path_to_db, pw);
             List<Entry> entries = kee.getAllEntries();
 
             ListView lv_entries = (ListView) findViewById(R.id.lv_entries);
@@ -129,7 +134,6 @@ public class Selection extends AppCompatActivity {
                             SharedPreferences.Editor editor = sharedPref.edit();
                             editor.putString("DB_PATH", chosenDir);
                             editor.commit();
-                            loadDatabaseAndEntry();
                         }else {
                             openFileChooser();
                         }
@@ -176,5 +180,15 @@ public class Selection extends AppCompatActivity {
             // other 'case' lines to check for other
             // permissions this app might request
         }
+    }
+
+    @Override
+    public void onMasterPWAvailible(String mpw) {
+        loadDatabaseAndEntry(mpw);
+    }
+
+    @Override
+    public void onPasswordAvailible(String pw) {
+        Log.d("KEEPASS", pw);
     }
 }

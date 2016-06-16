@@ -69,7 +69,7 @@ public class SelectAuthentification extends Fragment implements View.OnClickList
                 if (mode != -1 && navigation != -1) {
                     SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getContext().getApplicationContext());
                     SharedPreferences.Editor editor = sharedPref.edit();
-                    editor.putInt("ENCRYPTION_MODE", mode);
+                    editor.putInt("ENCRYPTION_MODE", navigation);
                     editor.commit();
 
 
