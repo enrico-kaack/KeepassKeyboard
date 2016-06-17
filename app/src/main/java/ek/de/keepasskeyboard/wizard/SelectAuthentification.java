@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RadioButton;
 
+import ek.de.keepasskeyboard.Constants;
 import ek.de.keepasskeyboard.R;
 import ek.de.keepasskeyboard.wizard.OnWizardNavigation;
 import ek.de.keepasskeyboard.wizard.Wizard;
@@ -69,7 +70,7 @@ public class SelectAuthentification extends Fragment implements View.OnClickList
                 if (mode != -1 && navigation != -1) {
                     SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getContext().getApplicationContext());
                     SharedPreferences.Editor editor = sharedPref.edit();
-                    editor.putInt("ENCRYPTION_MODE", navigation);
+                    editor.putInt(Constants.ENCRYPTION_MODE, navigation);
                     editor.commit();
 
 

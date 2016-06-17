@@ -54,8 +54,8 @@ public class Selection extends AppCompatActivity implements OnPasswordInputed{
     protected void onResume() {
         super.onResume();
         handleBluetooth();
-        path_to_db = sharedPref.getString("DB_PATH", null);
-        encyrptionMethod = sharedPref.getInt("ENCRYPTION_MODE", -1);
+        path_to_db = sharedPref.getString(Constants.DB_PATH, null);
+        encyrptionMethod = sharedPref.getInt(Constants.ENCRYPTION_MODE, -1);
 
         if (path_to_db != null && !path_to_db.equals("null") && encyrptionMethod != -1) {
            initilizeEncryption();
@@ -71,7 +71,7 @@ public class Selection extends AppCompatActivity implements OnPasswordInputed{
     }
 
     private void checkForEncryptionMethodAndAskForIfNeccessay() {
-        encyrptionMethod = sharedPref.getInt("ENCRYPTION_MODE", -1);
+        encyrptionMethod = sharedPref.getInt(Constants.ENCRYPTION_MODE, -1);
         //if (encyrptionMethod == -1){
         Intent wizard = new Intent(this, Wizard.class);
         startActivity(wizard);
@@ -87,10 +87,10 @@ public class Selection extends AppCompatActivity implements OnPasswordInputed{
          blue = new BluetoothModul();
 
         blue.enable();
-        if (sharedPref.getString("DEVICE_MAC", null) == null){
+        if (sharedPref.getString(Constants.DEVICE_MAC, null) == null){
             blue.connect(this);
         }else{
-            blue.connect(sharedPref.getString("DEVICE_MAC", null));
+            blue.connect(sharedPref.getString(Constants.DEVICE_MAC, null));
         }
     }
 
@@ -120,7 +120,7 @@ public class Selection extends AppCompatActivity implements OnPasswordInputed{
 
 
         //read Value for DB-Path
-        path_to_db = sharedPref.getString("DB_PATH", "null");
+        path_to_db = sharedPref.getString(Constants.DB_PATH, "null");
 
         if (path_to_db.equals("null")){
             //Path is not set, open file choose dialog
@@ -143,7 +143,7 @@ public class Selection extends AppCompatActivity implements OnPasswordInputed{
 
                         if (f.isFile() && f.getName().endsWith(".kdbx") && f.canRead()){
                             SharedPreferences.Editor editor = sharedPref.edit();
-                            editor.putString("DB_PATH", chosenDir);
+                            editor.putString(Constants.DB_PATH, chosenDir);
                             editor.commit();
                         }else {
                             openFileChooser();
@@ -200,6 +200,6 @@ public class Selection extends AppCompatActivity implements OnPasswordInputed{
 
     @Override
     public void onPasswordAvailible(String pw) {
-        Log.d("KEEPASS", pw);
+        Log.d(Constants.TAG, pw);
     }
 }

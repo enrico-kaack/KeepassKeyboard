@@ -14,6 +14,7 @@ import android.widget.EditText;
 import java.io.UnsupportedEncodingException;
 import java.security.GeneralSecurityException;
 
+import ek.de.keepasskeyboard.Constants;
 import ek.de.keepasskeyboard.OnPasswordInputed;
 import ek.de.keepasskeyboard.R;
 import ek.de.keepasskeyboard.wizard.Wizard;
@@ -40,7 +41,7 @@ public class EncryptionModul implements OnPasswordInputed {
             onPasswordHandler = (OnPasswordInputed) context;
         } catch (ClassCastException e) {
 
-                    Log.d("KEEPASS", " should implement OnPasswordInputed");
+                    Log.d(Constants.TAG, " should implement OnPasswordInputed");
         }
     }
 
@@ -48,7 +49,7 @@ public class EncryptionModul implements OnPasswordInputed {
     public void getMasterPW(Activity activity){
 
         SharedPreferences prefs =  PreferenceManager.getDefaultSharedPreferences(context.getApplicationContext());
-        switch (prefs.getInt("ENCRYPTION_MODE", -1)){
+        switch (prefs.getInt(Constants.ENCRYPTION_MODE, -1)){
             case Wizard.FRAG_MASTER_PW:
                 openDialogToGetPW(activity, "Master Password");
                 break;
@@ -106,8 +107,8 @@ public class EncryptionModul implements OnPasswordInputed {
             SharedPreferences prefs =  PreferenceManager.getDefaultSharedPreferences(context.getApplicationContext());
             AesCbcWithIntegrity.SecretKeys key;
 
-            String salt = prefs.getString("PW_SALT", null);
-            String civ = prefs.getString("ENCRYPTED_MP", null);
+            String salt = prefs.getString(Constants.PW_SALT, null);
+            String civ = prefs.getString(Constants.ENCRYPTED_MP, null);
             if (salt != null && civ != null){
                 AesCbcWithIntegrity.CipherTextIvMac encypted = new AesCbcWithIntegrity.CipherTextIvMac(civ);
                 key = generateKeyFromPassword(pw, salt);
@@ -144,8 +145,8 @@ public class EncryptionModul implements OnPasswordInputed {
 
 
             //Save key and salt in sharedPreference
-            editor.putString("PW_SALT", salt);
-            editor.putString("ENCRYPTED_MP", civ.toString());
+            editor.putString(Constants.PW_SALT, salt);
+            editor.putString(Constants.ENCRYPTED_MP, civ.toString());
 
             editor.commit();
 
@@ -169,7 +170,7 @@ public class EncryptionModul implements OnPasswordInputed {
     public void onPasswordAvailible(String pw) {
         SharedPreferences prefs =  PreferenceManager.getDefaultSharedPreferences(context.getApplicationContext());
         String masterPW = null;
-        switch (prefs.getInt("ENCRYPTION_MODE", -1)){
+        switch (prefs.getInt(Constants.ENCRYPTION_MODE, -1)){
             case Wizard.FRAG_MASTER_PW:
                 onPasswordHandler.onMasterPWAvailible(pw);
                 break;

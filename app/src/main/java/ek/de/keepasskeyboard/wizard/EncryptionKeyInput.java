@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 
+import ek.de.keepasskeyboard.Constants;
 import ek.de.keepasskeyboard.R;
 
 /** Set up the pre shared key for the connection to the arduino device
@@ -36,7 +37,7 @@ public class EncryptionKeyInput extends Fragment {
                     SharedPreferences.Editor editor = prefs.edit();
 
                     //Save key and salt in sharedPreference
-                    editor.putString("ENCRYPTION_KEY", in_encryptionKey.getText().toString());
+                    editor.putString(Constants.ENCRYPTION_KEY, in_encryptionKey.getText().toString());
 
                     editor.commit();
 

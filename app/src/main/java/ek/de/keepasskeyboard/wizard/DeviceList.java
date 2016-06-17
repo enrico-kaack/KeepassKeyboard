@@ -27,6 +27,7 @@ import android.widget.TextView;
 
 import java.util.Set;
 
+import ek.de.keepasskeyboard.Constants;
 import ek.de.keepasskeyboard.R;
 import ek.de.keepasskeyboard.wizard.OnWizardNavigation;
 import ek.de.keepasskeyboard.wizard.Wizard;
@@ -176,7 +177,7 @@ public class DeviceList extends Fragment {
 
             SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getActivity().getApplicationContext());
             SharedPreferences.Editor editor = sharedPref.edit();
-            editor.putString("DEVICE_MAC", address);
+            editor.putString(Constants.DEVICE_MAC, address);
             editor.commit();
 
             onNavigation.goToFragment(Wizard.FRAG_ENCRYPTION_KEY);
