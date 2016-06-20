@@ -14,6 +14,7 @@ import java.io.OutputStream;
 import java.util.Set;
 import java.util.UUID;
 
+import ek.de.keepasskeyboard.Constants;
 import ek.de.keepasskeyboard.wizard.DeviceList;
 
 /**
@@ -69,8 +70,10 @@ public class BluetoothModul {
         //Check if device was connected before
         Set<BluetoothDevice> pairedDevices = blue.getBondedDevices();
         for (BluetoothDevice singleDevice : pairedDevices) {
-            if (singleDevice.getAddress().equals(adress)){
+            if (singleDevice.getAddress().equals(adress) && connectionStatus == NOT_CONNECTED){
+                connectionStatus = CONNECTING;
                 establishConnection(singleDevice);
+
             }
         }
     }
@@ -199,7 +202,7 @@ public class BluetoothModul {
                     //       .sendToTarget();
                 } catch (IOException e) {
                     Log.e(TAG, "disconnected", e);
-                    //connectionLost();
+                    connectionStatus = NOT_CONNECTED;
                     // Start the service over to restart listening mode
                     break;
                 }
@@ -213,6 +216,7 @@ public class BluetoothModul {
          */
         public void write(byte[] buffer) {
             try {
+                Log.d(TAG, String.valueOf(buffer));
                 mmOutStream.write(buffer);
 
             } catch (IOException e) {

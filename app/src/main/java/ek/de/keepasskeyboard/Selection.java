@@ -72,10 +72,10 @@ public class Selection extends AppCompatActivity implements OnPasswordInputed{
 
     private void checkForEncryptionMethodAndAskForIfNeccessay() {
         encyrptionMethod = sharedPref.getInt(Constants.ENCRYPTION_MODE, -1);
-        //if (encyrptionMethod == -1){
+        if (encyrptionMethod == -1){
         Intent wizard = new Intent(this, Wizard.class);
         startActivity(wizard);
-        //}
+        }
     }
 
     private void initilizeEncryption() {
