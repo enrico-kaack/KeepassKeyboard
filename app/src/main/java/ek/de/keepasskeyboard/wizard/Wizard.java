@@ -21,6 +21,8 @@ public class Wizard extends AppCompatActivity implements OnWizardNavigation {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_wizard);
 
+        new WizardData().context = getApplicationContext();
+
         // Check that the activity is using the layout version with
         // the fragment_container FrameLayout
         if (findViewById(R.id.fragment_container) != null) {
@@ -52,7 +54,7 @@ public class Wizard extends AppCompatActivity implements OnWizardNavigation {
                 frag = null;
                 break;
             case FRAG_PW:
-                frag = new SetUpPW();
+                frag = new SetUpMasterPw();
                 break;
             case FRAG_BLUETOOTH_DEVICE_LIST:
                 frag = new DeviceList();

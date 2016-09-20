@@ -175,10 +175,7 @@ public class DeviceList extends Fragment {
             String info = ((TextView) v).getText().toString();
             String address = info.substring(info.length() - 17);
 
-            SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getActivity().getApplicationContext());
-            SharedPreferences.Editor editor = sharedPref.edit();
-            editor.putString(Constants.DEVICE_MAC, address);
-            editor.commit();
+            new WizardData().deviceMac = address;
 
             onNavigation.goToFragment(Wizard.FRAG_ENCRYPTION_KEY);
 

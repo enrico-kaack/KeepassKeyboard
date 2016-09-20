@@ -25,7 +25,7 @@ import ek.de.keepasskeyboard.encryption.EncryptionModul;
 import ek.de.keepasskeyboard.wizard.Wizard;
 
 
-public class Selection extends AppCompatActivity implements OnPasswordInputed{
+public class Selection extends AppCompatActivity implements OnPasswordInputed {
     SharedPreferences sharedPref;
     BluetoothModul blue;
     String path_to_db;
@@ -41,27 +41,30 @@ public class Selection extends AppCompatActivity implements OnPasswordInputed{
         sharedPref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
 
         kee = new KeepassHandler();
+
+        blue = new BluetoothModul();
+
         handlePermissions();
-
-        checkForEncryptionMethodAndAskForIfNeccessay();
-        checkForInputPathAndAskForIfNeccessary();
-
     }
-
 
 
     @Override
     protected void onResume() {
         super.onResume();
-        handleBluetooth();
+        //handleBluetooth();
         path_to_db = sharedPref.getString(Constants.DB_PATH, null);
         encyrptionMethod = sharedPref.getInt(Constants.ENCRYPTION_MODE, -1);
 
         if (path_to_db != null && !path_to_db.equals("null") && encyrptionMethod != -1) {
-           initilizeEncryption();
-
+            //app has been setup before
+            initilizeEncryption();
+        }else if (encyrptionMethod == -1){
+            //encryption mode wasn't set --> initial wizard
+            Intent wizard = new Intent(this, Wizard.class);
+            startActivity(wizard);
         }
     }
+
 
     @Override
     protected void onPause() {
@@ -70,13 +73,6 @@ public class Selection extends AppCompatActivity implements OnPasswordInputed{
 
     }
 
-    private void checkForEncryptionMethodAndAskForIfNeccessay() {
-        encyrptionMethod = sharedPref.getInt(Constants.ENCRYPTION_MODE, -1);
-        if (encyrptionMethod == -1){
-        Intent wizard = new Intent(this, Wizard.class);
-        startActivity(wizard);
-        }
-    }
 
     private void initilizeEncryption() {
         EncryptionModul encryptionModul = new EncryptionModul(this);
@@ -84,19 +80,16 @@ public class Selection extends AppCompatActivity implements OnPasswordInputed{
     }
 
     private void handleBluetooth() {
-         blue = new BluetoothModul();
 
         blue.enable();
-        if (sharedPref.getString(Constants.DEVICE_MAC, null) == null){
-            blue.connect(this);
-        }else{
+        if (sharedPref.getString(Constants.DEVICE_MAC, null) == null) {
+            //blue.connect(this);
+        } else {
             blue.connect(sharedPref.getString(Constants.DEVICE_MAC, null));
         }
     }
 
     private void loadDatabaseAndEntry(String pw) {
-
-
         if (pw != null) {
             kee.unlockDatabase(path_to_db, pw);
             List<Entry> entries = kee.getAllEntries();
@@ -111,7 +104,7 @@ public class Selection extends AppCompatActivity implements OnPasswordInputed{
                     blue.write(adapter.getItem(position).getPassword());
                 }
             });
-        }else {
+        } else {
             Log.d("KEEPASS", "Unable to load/encrypt MPW");
         }
     }
@@ -122,7 +115,7 @@ public class Selection extends AppCompatActivity implements OnPasswordInputed{
         //read Value for DB-Path
         path_to_db = sharedPref.getString(Constants.DB_PATH, "null");
 
-        if (path_to_db.equals("null")){
+        if (path_to_db.equals("null")) {
             //Path is not set, open file choose dialog
             openFileChooser();
         }
@@ -130,22 +123,20 @@ public class Selection extends AppCompatActivity implements OnPasswordInputed{
 
     private void openFileChooser() {
         //Create FileOpenDialog and register a callback
-        FilePicker fileOpenDialog =  new FilePicker(
+        FilePicker fileOpenDialog = new FilePicker(
                 Selection.this,
                 "FileOpen..",
-                new FilePicker.SimpleFileDialogListener()
-                {
+                new FilePicker.SimpleFileDialogListener() {
                     @Override
-                    public void onChosenDir(String chosenDir)
-                    {
+                    public void onChosenDir(String chosenDir) {
                         //Check if the chosen file is a allowed file typ with suffix .kdbx
-                       File f = new File(chosenDir);
+                        File f = new File(chosenDir);
 
-                        if (f.isFile() && f.getName().endsWith(".kdbx") && f.canRead()){
+                        if (f.isFile() && f.getName().endsWith(".kdbx") && f.canRead()) {
                             SharedPreferences.Editor editor = sharedPref.edit();
                             editor.putString(Constants.DB_PATH, chosenDir);
                             editor.commit();
-                        }else {
+                        } else {
                             openFileChooser();
                         }
 
@@ -162,7 +153,7 @@ public class Selection extends AppCompatActivity implements OnPasswordInputed{
             ActivityCompat.requestPermissions(this,
                     new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE,
                             Manifest.permission.READ_EXTERNAL_STORAGE},
-                            22);
+                    22);
         }
 
 

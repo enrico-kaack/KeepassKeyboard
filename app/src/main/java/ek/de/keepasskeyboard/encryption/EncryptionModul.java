@@ -129,7 +129,7 @@ public class EncryptionModul implements OnPasswordInputed {
 
 
 
-    public boolean encryptMPByPassword(String pw, String masterPW){
+    public EncryptedPassword encryptMPByPassword(String pw, String masterPW){
         try {
             AesCbcWithIntegrity.SecretKeys key;
 
@@ -143,21 +143,14 @@ public class EncryptionModul implements OnPasswordInputed {
             SharedPreferences prefs =  PreferenceManager.getDefaultSharedPreferences(context.getApplicationContext());
             SharedPreferences.Editor editor = prefs.edit();
 
-
-            //Save key and salt in sharedPreference
-            editor.putString(Constants.PW_SALT, salt);
-            editor.putString(Constants.ENCRYPTED_MP, civ.toString());
-
-            editor.commit();
-
-            return true;
+            return new EncryptedPassword(civ.toString(), salt);
 
         }catch(GeneralSecurityException e) {
             Log.d("KEEPASS", e.getMessage());
-            return false;
+            return null;
         }catch (UnsupportedEncodingException e2){
             Log.d("KEEPASS", e2.getMessage());
-            return false;
+            return null;
         }
     }
 
